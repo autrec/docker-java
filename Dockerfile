@@ -1,6 +1,6 @@
 FROM alpine
 #声明作者
-LABEL maintainer="java docker Autre <mo@autre.cn>"
+LABEL maintainer="a little <mo@autre.cn>"
 #升级内核及软件
 RUN set -x \
     && apk update \
@@ -19,5 +19,5 @@ RUN set -x \
 ## 进到应用目录
 WORKDIR /var/app
 #开放端口
-EXPOSE 3000
+EXPOSE 8080
 CMD ["java","-jar","app.jar","daemon off;"]
