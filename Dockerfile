@@ -1,6 +1,9 @@
 FROM alpine
 #声明作者
-LABEL maintainer="a little <mo@autre.cn>"
+LABEL maintainer="a little <mo@autre.cn> https://coding.autre.cn"
+#环境变量
+ARG SPRING_PROFILES_ACTIVE=prod
+ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
 #升级内核及软件
 RUN set -x \
     && apk update \
@@ -16,8 +19,7 @@ RUN set -x \
 RUN set -x \
     && apk add openjdk8 \
     && rm -rf /tmp/* /var/cache/apk/*
-## 进到应用目录
-WORKDIR /var/app
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
 #开放端口
 EXPOSE 8080
-CMD ["java","-jar","app.jar","daemon off;"]
